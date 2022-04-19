@@ -1,0 +1,26 @@
+二，开户stelnet权限
+[SW1]stelnet server enable
+
+三，创建本地密钥对
+[SW1]rsa local-key-pair create
+
+四，创建ssh用户名为user
+[SW1]ssh user user //创建用户
+[SW1]ssh user user authentication-type password //创建用户认证为密码认证
+[SW1]ssh user user service-type stelnet //服务类型为ssh
+
+五，进入aaa模式下配置用户
+
+[SW1]aaa //进入aaa模式
+[SW1-aaa]local-user user password cipher user123 //配置用户密码为user123
+[SW1-aaa]local-user user privilege level 15 //配置用户权限级别
+[SW1-aaa]local-user user service-type ssh //允许用户ssh访问权限
+	      local-aaa-user administrator alert password
+
+六，配置vty界面支持的登录协议
+[SW1]user-interface vty 0 4
+[SW1-ui-vty0-4]authentication-mode aaa //认证为aaa
+[SW1-ui-vty0-4]protocol inbound ssh //登录协议为ssh登入
+
+七，高端交换机还需要配置
+ssh server-source all-interface
