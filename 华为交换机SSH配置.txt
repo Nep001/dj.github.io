@@ -8,6 +8,7 @@
 [SW1]ssh user user //创建用户
 [SW1]ssh user user authentication-type password //创建用户认证为密码认证
 [SW1]ssh user user service-type stelnet //服务类型为ssh
+ssh client first-time enable
 
 五，进入aaa模式下配置用户
 
@@ -21,6 +22,7 @@
 [SW1]user-interface vty 0 4
 [SW1-ui-vty0-4]authentication-mode aaa //认证为aaa
 [SW1-ui-vty0-4]protocol inbound ssh //登录协议为ssh登入
+idle-timeout 10
 
 七，高端交换机还需要配置
 ssh server-source all-interface
