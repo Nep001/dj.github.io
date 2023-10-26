@@ -1,0 +1,206 @@
+AR1:
+1、设备命名
+
+sysname AR1
+
+2、配置接口IP
+
+int l 0
+ip add 10.0.1.1 24
+int l 1
+ip add 10.2.0.1 24
+int l 2
+ip add 10.2.1.1 24
+int s1/0/0
+ip add 10.0.12.1 24
+
+3、配置OSPF
+
+a)配置OSPF网络接口类型
+
+int s1/0/0
+ospf network-type p2p
+q
+
+b)开启OSPF进程并配置OSPFrouterID
+
+ospf 2023 route 10.0.1.1
+
+c)在区域2内宣告路由
+
+area 2
+net 10.0.1.1 0.0.0.0
+net 10.2.0.1 0.0.0.0
+net 10.2.1.1 0.0.0.0
+net 10.0.12.1 0.0.0.0
+
+d)配置末节区域
+
+stub
+
+
+AR2:
+
+1、设备命名
+
+sysname AR2
+
+2、配置接口IP
+
+int l 0
+ip add 10.0.2.2 24
+int s1/0/0
+ip add 10.0.12.2 24
+int s1/0/1
+ip add 10.0.23.2 24
+int g0/0/0
+ip add 10.0.24.2 24
+
+3、配置OSPF
+
+a)配置OSPF网络接口类型
+
+int s1/0/0
+ospf network-type p2p
+q
+int s1/0/1
+ospf network-type p2p
+q
+
+b)开启OSPF进程并配置OSPFrouterID
+
+ospf 2023 route 10.0.2.2
+
+c)在区域0内宣告路由
+
+area 0
+net 10.0.2.2 0.0.0.0
+net 10.0.23.2 0.0.0.0
+
+d)在区域2内宣告路由
+
+area 2
+net 10.0.12.2 0.0.0.0
+
+e)配置完全末节区域
+
+stub no-summary
+
+f)在区域3内宣告路由
+
+area 3
+net 10.0.24.2 0.0.0.0
+
+AR3:
+
+1、设备命名
+
+sysname AR3
+
+2、配置接口IP
+
+int l 0
+ip add 10.0.3.3 24
+int s1/0/0
+ip add 10.0.35.3 24
+int s1/0/1
+ip add 10.0.23.3 24
+
+3、配置OSPF
+
+a)配置OSPF网络接口类型
+
+int s1/0/0
+ospf network-type p2p
+int s1/0/1
+ospf network-type p2p
+q
+
+b)开启OSPF进程并配置OSPFrouterID
+
+ospf 2023 route 10.0.3.3
+
+c)在区域0内宣告路由
+
+area 0
+net 10.0.3.3 0.0.0.0
+net 10.0.23.3 0.0.0.0
+
+d)在区域1内宣告路由
+
+area 1
+net 10.0.35.3 0.0.0.0
+nssa default-route-advertise
+
+e)配置totally nssa
+
+nssa no-summary
+
+AR4:
+
+1、设备命名
+
+sysname AR4
+
+2、配置接口IP
+
+int l 0
+ip add 10.0.4.4 24
+int g 0/0/0
+ip add 10.0.24.4 24
+
+3、配置OSPF
+
+a)开启OSPF进程并配置OSPFrouterID
+
+ospf 2023 route 10.0.4.4
+
+b)在区域3内宣告路由
+
+area 3
+net 10.0.4.4 0.0.0.0
+net 10.0.24.4 0.0.0.0
+
+AR5:
+
+1、设备命名
+
+sysname AR5
+
+2、配置接口IP
+
+int l 0
+ip add 10.0.5.5
+int l 1
+ip add 10.1.0.5 24
+int l 2
+ip add 10.1.1.5 24
+int s 1/0/0
+ip add 10.0.25.5 24
+
+3、配置OSPF
+
+a)配置OSPF网络接口类型
+
+int s 1/0/0
+ospf network-type p2p
+
+b)开启OSPF进程并配置OSPFrouterID
+
+ospf 2023 route 10.0.5.5
+
+c)引入直连路由
+
+import-route direct
+
+d)在区域1内宣告路由
+
+area 1
+net 10.0.5.5 0.0.0.0
+net 10.0.35.5 0.0.0.0
+
+e)配置nssa
+
+nssa
+
+
