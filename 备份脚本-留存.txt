@@ -1,0 +1,8 @@
+HW:tftp 192.168.100.106 put vrpcfg.zip
+
+H3C（核心）：tftp 192.168.100.106 put startup.cfg
+H3C（接入）：tftp 192.168.100.106 put config.cfg
+
+博达：copy flash:startup-config tftp: 192.168.100.106
+
+中兴：copy tftp root: /flash/DATA0/startrun.dat //192.168.100.106/startrun.dat

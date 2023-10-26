@@ -1,0 +1,31 @@
+awk '{print NR, $0}' students
+
+
+sed -n '2p' aa.txt
+
+sed  '3,16d' aa.txt
+
+sed '/boot/d' aa.txt
+
+sed '/^d/d' aa.txt
+
+sed '/d/d' aa.txt
+
+sed -n 'p' aa.txt
+
+sed -n '/^d/,/^l/p' aa.txt
+
+sed -n '/dev/,5p' aa.txt
+
+sed -n '2,/dev/p' aa.txt
+
+sed -n '3,16!p' aa.txt
+
+sed -n '/^#/|/^$/!p' aa.txt
+
+sed -n '/^#/!{/^$/!p}' aa.txt
+
+sed -n '/^#/!{/^$/!p}' aa.txt
+
+
+
